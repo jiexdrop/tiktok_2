@@ -1,0 +1,13 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1770660327
+arena.gd::GDScript::5821768578369101920::1770660283::0::1::::Arena<>StaticBody2D<><>0<>0<><>::
+fighter.gd::GDScript::8970470539891256783::1770660283::0::1::::Fighter<>RigidBody2D<><>0<>0<><>::
+main.gd::GDScript::4515010382354114499::1770660283::0::1::::<>Node2D<><>0<>0<><>::
+main.tscn::PackedScene::7039266301106830569::1770660283::0::1::::<><><>0<>0<><>::res://main.gd<>res://arena.gd<>uid://bskm3j8yqxtqo::::res://melee_fighter.tscn<>uid://cxm8b4kj5n7op::::res://ranged_fighter.tscn
+melee_fighter.gd::GDScript::458961495708906468::1770660283::0::1::::MeleeFighter<>Fighter<><>0<>0<><>::
+melee_fighter.tscn::PackedScene::3671242777662271474::1770660283::0::1::::<><><>0<>0<><>::res://melee_fighter.gd
+projectile.gd::GDScript::3260050470818498765::1770660283::0::1::::Projectile<>RigidBody2D<><>0<>0<><>::
+projectile.tscn::PackedScene::2542230094888520220::1770660283::0::1::::<><><>0<>0<><>::res://projectile.gd
+ranged_fighter.gd::GDScript::5203936466991418331::1770660283::0::1::::RangedFighter<>Fighter<><>0<>0<><>::
+ranged_fighter.tscn::PackedScene::6413964289739618131::1770660283::0::1::::<><><>0<>0<><>::res://ranged_fighter.gd<>uid://bchqfm6nup3ie::::res://projectile.tscn
+README.md::TextFile::-1::1770660283::0::1::::<><><>0<>0<><>::

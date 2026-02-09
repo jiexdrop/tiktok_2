@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://c7j4xm1wqx3pd"]
+
+[ext_resource type="Script" uid="uid://b5ldtc6fab8gl" path="res://main.gd" id="1"]
+[ext_resource type="Script" uid="uid://co7dxbw03b2w7" path="res://arena.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://bskm3j8yqxtqo" path="res://melee_fighter.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://cxm8b4kj5n7op" path="res://ranged_fighter.tscn" id="4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(400, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
+size = Vector2(20, 600)
+
+[node name="Main" type="Node2D" unique_id=1027989936]
+script = ExtResource("1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=41902423]
+position = Vector2(270, 480)
+
+[node name="Arena" type="StaticBody2D" parent="." unique_id=2094471235]
+position = Vector2(270, 480)
+collision_mask = 6
+script = ExtResource("2")
+
+[node name="Background" type="ColorRect" parent="Arena" unique_id=1079890663]
+offset_left = -200.0
+offset_top = -300.0
+offset_right = 200.0
+offset_bottom = 300.0
+color = Color(0.15, 0.15, 0.15, 1)
+
+[node name="TopWall" type="CollisionShape2D" parent="Arena" unique_id=1082825511]
+position = Vector2(0, -300)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Arena" unique_id=1113445411]
+position = Vector2(0, 300)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Arena" unique_id=1141279709]
+position = Vector2(-200, 0)
+shape = SubResource("RectangleShape2D_2")
+
+[node name="RightWall" type="CollisionShape2D" parent="Arena" unique_id=320880608]
+position = Vector2(200, 0)
+shape = SubResource("RectangleShape2D_2")
+
+[node name="TopBorder" type="ColorRect" parent="Arena" unique_id=327019488]
+offset_left = -200.0
+offset_top = -310.0
+offset_right = 200.0
+offset_bottom = -290.0
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="BottomBorder" type="ColorRect" parent="Arena" unique_id=104181114]
+offset_left = -200.0
+offset_top = 290.0
+offset_right = 200.0
+offset_bottom = 310.0
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="LeftBorder" type="ColorRect" parent="Arena" unique_id=1739552383]
+offset_left = -210.0
+offset_top = -300.0
+offset_right = -190.0
+offset_bottom = 300.0
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="RightBorder" type="ColorRect" parent="Arena" unique_id=2019877937]
+offset_left = 190.0
+offset_top = -300.0
+offset_right = 210.0
+offset_bottom = 300.0
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="Fighter1" parent="." unique_id=321847649 instance=ExtResource("3")]
+position = Vector2(129, 710)
+
+[node name="Fighter2" parent="." unique_id=1180439835 instance=ExtResource("4")]
+position = Vector2(411, 233)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1514193902]
+
+[node name="VictoryLabel" type="Label" parent="UI" unique_id=1773508291]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 48
+text = "WINNER!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RoundLabel" type="Label" parent="UI" unique_id=1305406592]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -250.0
+offset_right = 150.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 36
+text = "ROUND 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VictorySound" type="AudioStreamPlayer" parent="." unique_id=2134561742]

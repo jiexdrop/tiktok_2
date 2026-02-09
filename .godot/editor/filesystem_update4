@@ -1,0 +1,10 @@
+res://melee_fighter.tscn
+res://main.tscn
+res://ranged_fighter.tscn
+res://fighter.gd
+res://melee_fighter.gd
+res://ranged_fighter.gd
+res://README.md
+res://projectile.gd
+res://projectile.tscn
+res://main.gd

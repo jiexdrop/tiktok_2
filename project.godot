@@ -29,6 +29,10 @@ window/size/viewport_height=960
 window/size/mode=2
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+projectiles=""
+
 [physics]
 
 2d/default_gravity=0.0

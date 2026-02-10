@@ -17,7 +17,7 @@ var movement_timer: float = 0.0
 var strafe_direction: float = 1.0
 var movement_style: int = 0  # 0 = direct, 1 = orbit, 2 = strafe
 
-@onready var sprite: ColorRect = $ColorRect
+@onready var sprite: TextureRect = $ColorRect
 @onready var attack_area: Area2D = $AttackArea
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var hit_sound: AudioStreamPlayer = $HitSound
@@ -32,7 +32,7 @@ func _ready():
 	gravity_scale = 0.0
 	
 	current_health = max_health
-	sprite.color = fighter_color
+	#sprite.color = fighter_color
 	health_bar.max_value = max_health
 	health_bar.value = current_health
 	

@@ -6,6 +6,23 @@ class_name RangedFighter
 @export var min_attack_distance: float = 150.0
 @export var optimal_distance: float = 180.0
 @export var retreat_multiplier: float = 1.8
+@export var gun_orbit_radius: float = 20.0  # Distance from body center
+@onready var gun: Sprite2D = $Gun
+
+func _process(delta):
+	if target:
+		update_gun_position_and_rotation()
+
+func update_gun_position_and_rotation():
+	var to_target = target.global_position - global_position
+	var angle_to_target = to_target.angle()
+	
+	# Position gun on orbit around body
+	var orbit_offset = Vector2.RIGHT.rotated(angle_to_target) * gun_orbit_radius
+	gun.position = orbit_offset
+	
+	# Rotate gun to face target
+	gun.rotation = angle_to_target
 
 func move_towards_target():
 	var to_target = target.global_position - global_position
@@ -13,28 +30,22 @@ func move_towards_target():
 	var direction = to_target.normalized()
 	
 	if distance < min_attack_distance:
-		# Retreat! Move away from target
 		var retreat_dir = -direction
-		# Add some strafing while retreating
 		var perpendicular = Vector2(-direction.y, direction.x) * strafe_direction
 		var combined = (retreat_dir * 0.7 + perpendicular * 0.3).normalized()
 		apply_central_force(combined * move_speed * retreat_multiplier)
 		
 	elif distance > optimal_distance:
-		# Too far, move closer but with strafing
 		var perpendicular = Vector2(-direction.y, direction.x) * strafe_direction
 		var combined = (direction * 0.5 + perpendicular * 0.5).normalized()
 		apply_central_force(combined * move_speed * 0.8)
 	else:
-		# At optimal distance, just strafe
 		var perpendicular = Vector2(-direction.y, direction.x) * strafe_direction
 		apply_central_force(perpendicular * move_speed * 0.6)
 
 func perform_attack():
 	if not target:
 		return
-	
-	# Always shoot when attack is ready
 	shoot_projectile()
 
 func shoot_projectile():
@@ -43,9 +54,12 @@ func shoot_projectile():
 	
 	var projectile = projectile_scene.instantiate()
 	get_parent().add_child(projectile)
-	projectile.global_position = global_position
 	
-	var direction = (target.global_position - global_position).normalized()
+	# Spawn at gun's global position (orbiting position)
+	projectile.global_position = gun.global_position
+	
+	# Fire in direction gun is pointing
+	var direction = Vector2.RIGHT.rotated(gun.rotation)
 	projectile.set_velocity(direction * projectile_speed)
 	projectile.set_damage(attack_damage)
 	projectile.set_owner_fighter(self)

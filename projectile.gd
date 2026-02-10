@@ -27,13 +27,13 @@ func set_owner_fighter(fighter: Fighter):
 func _on_body_entered(body):
 	if body is Fighter and body != owner_fighter:
 		body.take_damage(damage, global_position)
-		impact_sound.play()
+		SoundManager.play_sfx(impact_sound.stream, global_position)
 		# Visual impact effect
 		modulate = Color(2, 2, 2, 1)
 		await get_tree().create_timer(0.1).timeout
 		queue_free()
 	elif body is StaticBody2D:
 		# Hit wall
-		impact_sound.play()
+		SoundManager.play_sfx(impact_sound.stream, global_position)
 		await get_tree().create_timer(0.1).timeout
 		queue_free()

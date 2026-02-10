@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cge3cq0inyah4" path="res://ranged_fighter.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bchqfm6nup3ie" path="res://projectile.tscn" id="2"]
+[ext_resource type="AudioStream" uid="uid://c78rytn70m74m" path="res://sounds/ouch.ogg" id="3_f430f"]
+[ext_resource type="AudioStream" uid="uid://cx3rrdmqhj5h1" path="res://sounds/uhh.mp3" id="4_lybft"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 25.0
@@ -144,8 +146,10 @@ offset_bottom = -35.0
 show_percentage = false
 
 [node name="HitSound" type="AudioStreamPlayer" parent="." unique_id=828150600]
+stream = ExtResource("3_f430f")
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=1357912621]
+stream = ExtResource("4_lybft")
 
 [node name="AttackSound" type="AudioStreamPlayer" parent="." unique_id=1868081351]
 

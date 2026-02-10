@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://bskm3j8yqxtqo"]
 
 [ext_resource type="Script" uid="uid://gsla8jexx0ii" path="res://melee_fighter.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://c78rytn70m74m" path="res://sounds/ouch.ogg" id="2_65xu0"]
+[ext_resource type="AudioStream" uid="uid://cx3rrdmqhj5h1" path="res://sounds/uhh.mp3" id="3_iwkca"]
+[ext_resource type="AudioStream" uid="uid://cfh3quayi84s6" path="res://sounds/whoosh.mp3" id="3_m271a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 30.0
@@ -169,10 +172,13 @@ offset_bottom = -40.0
 show_percentage = false
 
 [node name="HitSound" type="AudioStreamPlayer" parent="." unique_id=862387319]
+stream = ExtResource("2_65xu0")
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=1077067321]
+stream = ExtResource("3_iwkca")
 
 [node name="AttackSound" type="AudioStreamPlayer" parent="." unique_id=980571332]
+stream = ExtResource("3_m271a")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1616525083]
 libraries/ = SubResource("AnimationLibrary_1")

@@ -29,6 +29,10 @@ window/size/viewport_height=960
 window/size/mode=2
 window/stretch/mode="canvas_items"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/Jorge/Videos/Tiktok/tiktok_20.avi"
+
 [global_group]
 
 projectiles=""

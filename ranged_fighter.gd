@@ -57,6 +57,7 @@ func shoot_projectile():
 	
 	# Spawn at gun's global position (orbiting position)
 	projectile.global_position = gun.global_position
+	projectile.global_rotation = gun.global_rotation
 	
 	# Fire in direction gun is pointing
 	var direction = Vector2.RIGHT.rotated(gun.rotation)

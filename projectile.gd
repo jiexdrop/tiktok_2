@@ -4,7 +4,7 @@ class_name Projectile
 var damage: float = 10.0
 var owner_fighter: Fighter = null
 
-@onready var sprite: ColorRect = $ColorRect
+@onready var sprite: TextureRect = $ColorRect
 @onready var impact_sound: AudioStreamPlayer = $ImpactSound
 
 func _ready():

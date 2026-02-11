@@ -6,12 +6,45 @@ class_name RangedFighter
 @export var min_attack_distance: float = 150.0
 @export var optimal_distance: float = 180.0
 @export var retreat_multiplier: float = 1.8
-@export var gun_orbit_radius: float = 20.0  # Distance from body center
+@export var gun_orbit_radius: float = 20.0
+
 @onready var gun: Sprite2D = $Gun
+@onready var muzzle_flash: CPUParticles2D = null
+
+func _ready():
+	super._ready()
+	setup_muzzle_flash()
 
 func _process(delta):
 	if target:
 		update_gun_position_and_rotation()
+
+func setup_muzzle_flash():
+	# Create muzzle flash particles at gun tip
+	muzzle_flash = CPUParticles2D.new()
+	gun.add_child(muzzle_flash)
+	
+	# Position at gun tip (adjust as needed for your sprite)
+	muzzle_flash.position = Vector2(20, 0)
+	
+	muzzle_flash.emitting = false
+	muzzle_flash.amount = 15
+	muzzle_flash.lifetime = 0.1
+	muzzle_flash.one_shot = true
+	muzzle_flash.explosiveness = 1.0
+	
+	muzzle_flash.direction = Vector2.RIGHT
+	muzzle_flash.spread = 30.0
+	muzzle_flash.initial_velocity_min = 200.0
+	muzzle_flash.initial_velocity_max = 400.0
+	muzzle_flash.scale_amount_min = 2.0
+	muzzle_flash.scale_amount_max = 4.0
+	
+	# Bright yellow-white flash
+	var gradient = Gradient.new()
+	gradient.set_color(0, Color(2, 2, 1))
+	gradient.set_color(1, Color(1, 0.5, 0, 0))
+	muzzle_flash.color_ramp = gradient
 
 func update_gun_position_and_rotation():
 	var to_target = target.global_position - global_position
@@ -52,10 +85,16 @@ func shoot_projectile():
 	attack_sound.play()
 	animation_player.play("shoot")
 	
+	# Juice effects!
+	gun_recoil()
+	muzzle_flash.emitting = true
+	if camera and camera.has_method("small_shake"):
+		camera.small_shake()
+	
 	var projectile = projectile_scene.instantiate()
 	get_parent().add_child(projectile)
 	
-	# Spawn at gun's global position (orbiting position)
+	# Spawn at gun's global position
 	projectile.global_position = gun.global_position
 	projectile.global_rotation = gun.global_rotation
 	
@@ -66,3 +105,14 @@ func shoot_projectile():
 	projectile.set_owner_fighter(self)
 	
 	start_attack_cooldown()
+
+func gun_recoil():
+	# Quick recoil animation on gun
+	var original_pos = gun.position
+	var recoil_offset = Vector2(-5, 0).rotated(gun.rotation)
+	
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(gun, "position", original_pos + recoil_offset, 0.05)
+	tween.tween_property(gun, "position", original_pos, 0.2)

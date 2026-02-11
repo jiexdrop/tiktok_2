@@ -6,6 +6,7 @@ extends Node2D
 @onready var victory_label: Label = $UI/VictoryLabel
 @onready var round_label: Label = $UI/RoundLabel
 @onready var victory_sound: AudioStreamPlayer = $VictorySound
+@onready var camera = $Camera2D
 
 var round_number: int = 1
 
@@ -37,25 +38,63 @@ func _on_fighter_died(fighter: Fighter):
 	victory_label.show()
 	victory_sound.play()
 	
-	# Add screen shake
-	shake_camera()
+	# Victory effects!
+	if camera and camera.has_method("huge_shake"):
+		camera.huge_shake()
+	spawn_victory_particles(fighter)
+	flash_screen()
 	
 	# Restart after delay
 	await get_tree().create_timer(2.0).timeout
 	if is_inside_tree():
 		get_tree().reload_current_scene()
 
-func shake_camera():
-	var camera = $Camera2D
-	var shake_amount = 10.0
-	var shake_duration = 0.5
-	var shake_frequency = 30.0
+func spawn_victory_particles(defeated_fighter: Fighter):
+	# Big celebration burst
+	var particles = CPUParticles2D.new()
+	add_child(particles)
+	particles.global_position = defeated_fighter.global_position
 	
-	for i in range(int(shake_duration * shake_frequency)):
-		camera.offset = Vector2(
-			randf_range(-shake_amount, shake_amount),
-			randf_range(-shake_amount, shake_amount)
-		)
-		await get_tree().create_timer(1.0 / shake_frequency).timeout
+	particles.emitting = true
+	particles.amount = 100
+	particles.lifetime = 2.0
+	particles.one_shot = true
+	particles.explosiveness = 1.0
+	particles.randomness = 0.9
 	
-	camera.offset = Vector2.ZERO
+	particles.direction = Vector2.UP
+	particles.spread = 180.0
+	particles.initial_velocity_min = 300.0
+	particles.initial_velocity_max = 600.0
+	particles.gravity = Vector2(0, 400)
+	particles.scale_amount_min = 4.0
+	particles.scale_amount_max = 10.0
+	
+	# Rainbow colors for victory!
+	var gradient = Gradient.new()
+	gradient.add_point(0.0, Color.RED)
+	gradient.add_point(0.25, Color.YELLOW)
+	gradient.add_point(0.5, Color.GREEN)
+	gradient.add_point(0.75, Color.CYAN)
+	gradient.add_point(1.0, Color.MAGENTA)
+	particles.color_ramp = gradient
+	
+	await get_tree().create_timer(particles.lifetime + 0.1).timeout
+	particles.queue_free()
+
+func flash_screen():
+	# Create a full screen white flash overlay
+	var flash = ColorRect.new()
+	add_child(flash)
+	
+	# Make it cover the whole viewport
+	flash.color = Color(1, 1, 1, 0.7)
+	flash.size = get_viewport_rect().size
+	flash.position = -get_viewport_rect().size / 2.0
+	flash.z_index = 100
+	
+	# Fade out quickly
+	var tween = create_tween()
+	tween.tween_property(flash, "modulate:a", 0.0, 0.3)
+	await tween.finished
+	flash.queue_free()

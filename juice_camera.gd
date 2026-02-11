@@ -1,66 +1,49 @@
 extends Camera2D
-class_name JuiceCamera
 
-# Trauma-based screen shake
-var trauma: float = 0.0
-var trauma_power: int = 2  # Exponential falloff
-var decay: float = 1.5  # How fast trauma decays per second
-var max_offset: float = 100.0
-var max_roll: float = 0.15
-var noise: FastNoiseLite
-var noise_y: int = 0
+# SUPER SIMPLE SHAKE - No noise, no fancy math, just SHAKE!
 
-# Chromatic aberration (via offset)
-var chromatic_aberration: float = 0.0
-var chromatic_decay: float = 3.0
-
-func _ready():
-	# Setup noise for smooth random shake
-	noise = FastNoiseLite.new()
-	noise.seed = randi()
-	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
-	noise.frequency = 4.0
+var shake_strength: float = 0.0
+var shake_decay: float = 5.0
 
 func _process(delta):
-	# Decay trauma and chromatic aberration
-	if trauma > 0:
-		trauma = max(trauma - decay * delta, 0)
-		shake()
-	
-	if chromatic_aberration > 0:
-		chromatic_aberration = max(chromatic_aberration - chromatic_decay * delta, 0)
-	
-	# Advance noise "time"
-	noise_y += 1
-
-func shake():
-	# Get trauma amount with exponential falloff
-	var amount = pow(trauma, trauma_power)
-	
-	# Sample noise for smooth random values
-	noise_y += 1
-	var offset_x = max_offset * amount * noise.get_noise_2d(noise.seed, noise_y)
-	var offset_y = max_offset * amount * noise.get_noise_2d(noise.seed * 2, noise_y)
-	var roll = max_roll * amount * noise.get_noise_2d(noise.seed * 3, noise_y)
-	
-	offset = Vector2(offset_x, offset_y)
-	rotation = roll
+	if shake_strength > 0:
+		# Simple random shake
+		offset = Vector2(
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength)
+		)
+		rotation = randf_range(-shake_strength * 0.01, shake_strength * 0.01)
+		
+		# Decay
+		shake_strength -= shake_decay * delta
+		
+		print("SHAKING! Strength: ", shake_strength, " Offset: ", offset)
+	else:
+		offset = Vector2.ZERO
+		rotation = 0
+		shake_strength = 0
 
 func add_trauma(amount: float):
-	trauma = min(trauma + amount, 1.0)
+	shake_strength += amount * 50.0  # Convert to pixel amount
+	print("=== SHAKE ADDED ===")
+	print("New strength: ", shake_strength)
 
-func add_chromatic_aberration(amount: float):
-	chromatic_aberration = min(chromatic_aberration + amount, 1.0)
-
-# Convenience functions for different shake intensities
 func small_shake():
-	add_trauma(0.2)
+	print("SMALL SHAKE!")
+	shake_strength = 1.5
 
 func medium_shake():
-	add_trauma(0.4)
+	print("MEDIUM SHAKE!")
+	shake_strength = 3.0
 
 func large_shake():
-	add_trauma(0.6)
+	print("LARGE SHAKE!")
+	shake_strength = 5.0
 
 func huge_shake():
-	add_trauma(0.9)
+	print("HUGE SHAKE!")
+	shake_strength = 10.0
+
+func test_shake():
+	print("TEST SHAKE - MAXIMUM!")
+	shake_strength = 10.0

@@ -90,7 +90,10 @@ func flash_screen():
 	# Make it cover the whole viewport
 	flash.color = Color(1, 1, 1, 0.7)
 	flash.size = get_viewport_rect().size
-	flash.position = -get_viewport_rect().size / 2.0
+	
+	# FIX: Set position to top-left (0,0)
+	flash.position = Vector2(0, 0) 
+	
 	flash.z_index = 100
 	
 	# Fade out quickly

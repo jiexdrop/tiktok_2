@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c7j4xm1wqx3pd"]
 
-[ext_resource type="Script" uid="uid://b5ldtc6fab8gl" path="res://main.gd" id="1"]
-[ext_resource type="Script" uid="uid://co7dxbw03b2w7" path="res://arena.gd" id="2"]
-[ext_resource type="Script" uid="uid://utafq36gwbek" path="res://juice_camera.gd" id="2_lquwl"]
-[ext_resource type="PackedScene" uid="uid://bskm3j8yqxtqo" path="res://melee_fighter.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://cxm8b4kj5n7op" path="res://ranged_fighter.tscn" id="4"]
+[ext_resource type="Script" uid="uid://b5ldtc6fab8gl" path="res://scripts/main.gd" id="1"]
+[ext_resource type="Script" uid="uid://co7dxbw03b2w7" path="res://scripts/arena.gd" id="2"]
+[ext_resource type="Script" uid="uid://utafq36gwbek" path="res://scripts/juice_camera.gd" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bskm3j8yqxtqo" path="res://scenes/melee_fighter.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://cxm8b4kj5n7op" path="res://scenes/ranged_fighter.tscn" id="4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(400, 20)
@@ -124,16 +124,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="UI" unique_id=568651056]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -154.0
-offset_top = 109.0
-offset_right = 152.0
-offset_bottom = 159.0
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -414.0
+offset_bottom = -311.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
-text = "Will red ever win?"
+text = "Red thinks Speed is a valid substitute for Skill"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="VictorySound" type="AudioStreamPlayer" parent="." unique_id=2134561742]

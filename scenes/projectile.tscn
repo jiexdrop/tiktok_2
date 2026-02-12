@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bchqfm6nup3ie"]
 
-[ext_resource type="Script" uid="uid://bmpgs4r7n20ht" path="res://projectile.gd" id="1"]
+[ext_resource type="Script" uid="uid://bmpgs4r7n20ht" path="res://scripts/projectile.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://0vwttmh7ufxn" path="res://images/bullet.png" id="2_dgwo2"]
 [ext_resource type="AudioStream" uid="uid://yans7gcefvgs" path="res://sounds/impact.ogg" id="2_qxf0c"]
 

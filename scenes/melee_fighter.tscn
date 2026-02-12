@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bskm3j8yqxtqo"]
 
-[ext_resource type="Script" uid="uid://gsla8jexx0ii" path="res://melee_fighter.gd" id="1"]
+[ext_resource type="Script" uid="uid://gsla8jexx0ii" path="res://scripts/melee_fighter.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://c78rytn70m74m" path="res://sounds/ouch.ogg" id="2_65xu0"]
 [ext_resource type="Texture2D" uid="uid://yv7ft6palhpp" path="res://images/ball.png" id="2_o2o2t"]
 [ext_resource type="AudioStream" uid="uid://cx3rrdmqhj5h1" path="res://sounds/uhh.mp3" id="3_iwkca"]

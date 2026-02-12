@@ -17,7 +17,7 @@ func _process(delta):
 		# Decay
 		shake_strength -= shake_decay * delta
 		
-		print("SHAKING! Strength: ", shake_strength, " Offset: ", offset)
+		#print("SHAKING! Strength: ", shake_strength, " Offset: ", offset)
 	else:
 		offset = Vector2.ZERO
 		rotation = 0
